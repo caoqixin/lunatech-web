@@ -1,4 +1,4 @@
-import { SupplierCategoryOptionsEnum } from "@/config/supplier_descriptions";
+import { SupplierCategories } from "@/views/supplier/types";
 import {
   parseAsString,
   useQueryStates,
@@ -10,7 +10,7 @@ export const useSupplierFilters = () => {
   return useQueryStates({
     search: parseAsString,
     categories: parseAsArrayOf(
-      parseAsStringEnum(Object.values(SupplierCategoryOptionsEnum))
+      parseAsStringEnum(Object.values(SupplierCategories))
     )
       .withDefault([])
       .withOptions({ clearOnDefault: true }),

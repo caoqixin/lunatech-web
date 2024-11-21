@@ -1,10 +1,10 @@
-import { SupplierCategoryOptionsEnum } from "@/config/supplier_descriptions";
+import { SupplierCategories } from "@/views/supplier/types";
 import { client } from "@/lib/rpc";
 import { useQuery } from "@tanstack/react-query";
 
 interface UseGetSuppliersProps {
   search: string | null;
-  categories?: SupplierCategoryOptionsEnum[];
+  categories?: SupplierCategories[];
 }
 
 export const useGetSuppliers = ({

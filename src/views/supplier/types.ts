@@ -14,7 +14,7 @@ export const SupplierCategoryOptions: Option[] = [
   { label: "二手设备", value: "USATO" },
 ];
 
-export enum SupplierCategoryOptionsEnum {
+export enum SupplierCategories {
   RICAMBI = "手机维修配件",
   ORIGINALE = "手机原装外配",
   ACCESSORI = "手机外配",
@@ -27,3 +27,5 @@ export enum SupplierCategoryOptionsEnum {
   TABLET = "平板批发",
   USATO = "二手设备",
 }
+
+export type supplierCategoriesKey = keyof typeof SupplierCategories;

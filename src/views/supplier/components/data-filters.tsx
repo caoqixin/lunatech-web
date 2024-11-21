@@ -1,4 +1,3 @@
-import { Option } from "@/components/custom/multiple-selector";
 import { Button } from "@/components/ui/button";
 import {
   DropdownMenu,
@@ -7,7 +6,10 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { SupplierCategoryOptionsEnum } from "@/config/supplier_descriptions";
+import {
+  SupplierCategories,
+  supplierCategoriesKey,
+} from "@/views/supplier/types";
 import { ListCheckIcon } from "lucide-react";
 import * as React from "react";
 import { useSupplierFilters } from "../hooks/use-supplier-filters";
@@ -17,23 +19,21 @@ interface DataFiltersProps {}
 export const DataFilters = ({}: DataFiltersProps) => {
   const [{ search, categories }, setFilters] = useSupplierFilters();
 
-  const toggleSelected = (key: keyof typeof SupplierCategoryOptionsEnum) => {
-    const isChecked = categories.some(
-      (v) => v == SupplierCategoryOptionsEnum[key]
-    );
+  const toggleSelected = (key: supplierCategoriesKey) => {
+    const isChecked = categories.some((v) => v == SupplierCategories[key]);
 
     if (isChecked) {
       // 移除
       setFilters({
         categories: categories.filter(
-          (prev) => prev != SupplierCategoryOptionsEnum[key]
+          (prev) => prev != SupplierCategories[key]
         ),
       });
     } else {
       // 添加
 
       setFilters({
-        categories: [...categories, SupplierCategoryOptionsEnum[key]],
+        categories: [...categories, SupplierCategories[key]],
       });
     }
   };
@@ -41,9 +41,9 @@ export const DataFilters = ({}: DataFiltersProps) => {
   const toggleAllSelected = () => {
     setFilters({
       categories:
-        categories.length === Object.keys(SupplierCategoryOptionsEnum).length
+        categories.length === Object.keys(SupplierCategories).length
           ? []
-          : [...Object.values(SupplierCategoryOptionsEnum)],
+          : [...Object.values(SupplierCategories)],
     });
   };
 
@@ -60,36 +60,24 @@ export const DataFilters = ({}: DataFiltersProps) => {
           <DropdownMenuCheckboxItem
             onClick={toggleAllSelected}
             checked={
-              categories.length ===
-              Object.keys(SupplierCategoryOptionsEnum).length
+              categories.length === Object.keys(SupplierCategories).length
             }
           >
             所有类型
           </DropdownMenuCheckboxItem>
           <DropdownMenuSeparator />
-          {Object.keys(SupplierCategoryOptionsEnum).map((option) => (
+          {Object.keys(SupplierCategories).map((option) => (
             <DropdownMenuCheckboxItem
               key={option}
-              onClick={() =>
-                toggleSelected(
-                  option as keyof typeof SupplierCategoryOptionsEnum
-                )
-              }
+              onClick={() => toggleSelected(option as supplierCategoriesKey)}
               checked={
                 categories.findIndex(
                   (value) =>
-                    value ==
-                    SupplierCategoryOptionsEnum[
-                      option as keyof typeof SupplierCategoryOptionsEnum
-                    ]
+                    value == SupplierCategories[option as supplierCategoriesKey]
                 ) >= 0
               }
             >
-              {
-                SupplierCategoryOptionsEnum[
-                  option as keyof typeof SupplierCategoryOptionsEnum
-                ]
-              }
+              {SupplierCategories[option as supplierCategoriesKey]}
             </DropdownMenuCheckboxItem>
           ))}
         </DropdownMenuContent>

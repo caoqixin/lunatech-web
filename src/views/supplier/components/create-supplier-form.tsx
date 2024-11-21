@@ -20,12 +20,12 @@ import {
   supplierSchema,
 } from "@/views/supplier/schema/supplier.schema";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
 import {
   SupplierCategoryOptions,
-  SupplierCategoryOptionsEnum,
-} from "@/config/supplier_descriptions";
+  SupplierCategories,
+  supplierCategoriesKey,
+} from "@/views/supplier/types";
 import MultipleSelector from "@/components/custom/multiple-selector";
 
 interface CreateSupplierFormProps {
@@ -33,7 +33,6 @@ interface CreateSupplierFormProps {
 }
 
 export const CreateSupplierForm = ({ onCancel }: CreateSupplierFormProps) => {
-  const router = useRouter();
   const { mutate, isPending } = useCreateSupplier();
 
   const form = useForm<Supplier>({
@@ -51,9 +50,7 @@ export const CreateSupplierForm = ({ onCancel }: CreateSupplierFormProps) => {
       url: values.url,
       categories:
         values.description?.map((desc) => {
-          return SupplierCategoryOptionsEnum[
-            desc.value as keyof typeof SupplierCategoryOptionsEnum
-          ];
+          return SupplierCategories[desc.value as supplierCategoriesKey];
         }) || [],
     };
 

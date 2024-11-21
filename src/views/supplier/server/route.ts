@@ -1,5 +1,5 @@
 import { DATABASE_ID, SUPPLIER_ID } from "@/config/config";
-import { SupplierCategoryOptionsEnum } from "@/config/supplier_descriptions";
+import { SupplierCategories } from "@/views/supplier/types";
 import { sessionMiddleware } from "@/middleware/session-middleware";
 import { supplierEnumSchema } from "@/views/supplier/schema/supplier.schema";
 import { zValidator } from "@hono/zod-validator";
@@ -17,8 +17,8 @@ const app = new Hono()
         search: z.string().nullish(),
         categories: z
           .union([
-            z.array(z.nativeEnum(SupplierCategoryOptionsEnum)),
-            z.nativeEnum(SupplierCategoryOptionsEnum),
+            z.array(z.nativeEnum(SupplierCategories)),
+            z.nativeEnum(SupplierCategories),
           ])
           .nullish()
           .transform((value) => {

@@ -1,4 +1,4 @@
-import { SupplierCategoryOptionsEnum } from "@/config/supplier_descriptions";
+import { SupplierCategories } from "@/views/supplier/types";
 import { z } from "zod";
 
 export const optionSchema = z.object({
@@ -17,7 +17,7 @@ export const supplierSchema = z.object({
 export const supplierEnumSchema = z.object({
   name: z.string().trim().min(1, "请输入供应商名称"),
   url: z.string().trim(),
-  categories: z.nativeEnum(SupplierCategoryOptionsEnum).array().optional(),
+  categories: z.nativeEnum(SupplierCategories).array().optional(),
 });
 
 export type SupplierEnum = z.infer<typeof supplierEnumSchema>;
